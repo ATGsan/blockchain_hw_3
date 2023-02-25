@@ -18,6 +18,27 @@ interface IERC20 {
 
 contract ATCOIN is IERC20 {
 
+    struct s {
+        int age;
+        string name;
+        bool is_female;
+    }
+
+    mapping(string => s) sMapping;
+
+    event sCreated(string name_);
+    event sDeleted(string name_);
+
+    function addToStructMapping(string memory name_, int age, bool is_female) public {
+        sMapping[name_] = s(age, name_, is_female);
+        emit sCreated(name_);
+    }
+
+    function delFromStructMapping(string memory name_) public {
+        delete sMapping[name_];
+        emit sDeleted(name_);
+    }
+
     string public constant name = "ATCOIN";
     string public constant symbol = "ERC";
     uint8 public constant decimals = 18;
